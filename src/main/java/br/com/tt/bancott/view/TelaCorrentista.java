@@ -5,6 +5,8 @@ import java.util.Scanner;
 import br.com.tt.bancott.infra.BancoDados;
 import br.com.tt.bancott.model.Conta;
 import br.com.tt.bancott.model.Correntista;
+import br.com.tt.bancott.model.CorrentistaPF;
+import br.com.tt.bancott.model.CorrentistaPJ;
 
 public class TelaCorrentista {
 
@@ -43,6 +45,26 @@ public class TelaCorrentista {
 	}
 
 	private void cadastrarCorrentista() {
+		System.out.println("Digite [1] para Pessoa Física ou "
+				+ "[2] para Pessoa Jurídica:");
+		int tipoPessoa = scanner.nextInt();
+		scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+		
+		String tipoDocumento = "";
+		String documento = "";
+		String cnpj = "";
+		
+		if (tipoPessoa == 1) {
+			System.out.println("Digite [CPF] ou [RG]:");
+			tipoDocumento = scanner.nextLine();
+			
+			System.out.println("Digite o número do documento:");
+			documento = scanner.nextLine();
+		} else {
+			System.out.println("Digite o CNPJ:");
+			cnpj = scanner.nextLine();
+		}
+		
 		System.out.println("Digite o nome do correntista:");
 		String nomeCorrentista = scanner.nextLine();
 		
@@ -55,8 +77,17 @@ public class TelaCorrentista {
 		scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 		
 		Conta contaCorrentista = new Conta(agenciaConta, numeroConta);
-		Correntista correntista = 
-				new Correntista(nomeCorrentista, contaCorrentista);
+		
+		
+		Correntista correntista;
+		
+		if (tipoPessoa == 1) {
+			correntista = new CorrentistaPF(nomeCorrentista, contaCorrentista, 
+					tipoDocumento, documento);
+		} else {
+			correntista = new CorrentistaPJ(nomeCorrentista, contaCorrentista, cnpj);
+		}
+
 		
 		// pega instância de um singleton, que é única
 		BancoDados bancoDeDados = BancoDados.getInstancia();

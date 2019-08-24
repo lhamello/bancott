@@ -1,6 +1,6 @@
 package br.com.tt.bancott.model;
 
-public class Correntista {
+public abstract class Correntista {
 
 	private String nome;
 	private Conta conta;

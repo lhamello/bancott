@@ -36,4 +36,8 @@ public class BancoDados {
 	public Correntista[] listarTodosCorrentistas() {
 		return correntistas;
 	}
+	
+	public Correntista selecionarCorrentista(int indiceCorrentista) {
+		return correntistas[indiceCorrentista];
+	}
 }

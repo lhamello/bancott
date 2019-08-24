@@ -10,6 +10,14 @@ public class Correntista {
 		this.conta = conta;
 	}
 	
+	public void incluirMovimentoAConta(Movimento movimento) {
+		this.conta.incluirMovimento(movimento);
+	}
+	
+	public Movimento[] listarMovimentosDaConta() {
+		return conta.getMovimentos();
+	}
+	
 	@Override
 	public String toString() {
 		return String.format("Correntista[nome=%s,conta=%s]", nome, conta);

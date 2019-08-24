@@ -15,6 +15,20 @@ public class Conta {
 		this.movimentos = new Movimento[1000];
 	}
 	
+	public void incluirMovimento(Movimento movimento) {
+		for (int i = 0; i < movimentos.length; i++) {
+			
+			if (movimentos[i] == null) {
+				movimentos[i] = movimento;
+				break;
+			}
+		}
+	}
+	
+	public Movimento[] getMovimentos() {
+		return movimentos;
+	}
+	
 	@Override
 	public String toString() {
 		return String.format("Conta[agencia=%s,numero=%s,saldo=R$ %.2f]", 

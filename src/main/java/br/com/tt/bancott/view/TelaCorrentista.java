@@ -8,6 +8,7 @@ import br.com.tt.bancott.model.Correntista;
 import br.com.tt.bancott.model.CorrentistaPF;
 import br.com.tt.bancott.model.CorrentistaPJ;
 import br.com.tt.bancott.model.TipoDocumentoPF;
+import br.com.tt.bancott.model.TipoPessoa;
 
 public class TelaCorrentista implements Tela {
 
@@ -46,16 +47,15 @@ public class TelaCorrentista implements Tela {
 	}
 
 	private void cadastrarCorrentista() {
-		System.out.println("Digite [1] para Pessoa Física ou "
-				+ "[2] para Pessoa Jurídica:");
-		int tipoPessoa = scanner.nextInt();
-		scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+		// variável tipoPessoa da classe TipoPessoa
+		// que recebe o retorno do método pedirTipoPessoa()
+		TipoPessoa tipoPessoa = this.pedirTipoPessoa();
 		
 		TipoDocumentoPF tipoDocumento = null;
 		String documento = "";
 		String cnpj = "";
 		
-		if (tipoPessoa == 1) {
+		if (tipoPessoa == TipoPessoa.PF) {
 			System.out.println("Digite [CPF] ou [RG]:");
 			String documentoSelecionado = scanner.nextLine();
 			tipoDocumento = TipoDocumentoPF.valueOf(documentoSelecionado);
@@ -82,7 +82,7 @@ public class TelaCorrentista implements Tela {
 		
 		Correntista correntista;
 		
-		if (tipoPessoa == 1) {
+		if (tipoPessoa == TipoPessoa.PF) {
 			correntista = new CorrentistaPF(nomeCorrentista, contaCorrentista, 
 					tipoDocumento, documento);
 		} else {
@@ -107,5 +107,24 @@ public class TelaCorrentista implements Tela {
 				System.out.println(correntista);
 			}
 		}
+	}
+	
+	private TipoPessoa pedirTipoPessoa() {
+		TipoPessoa tipoPessoa = null;
+
+		do {
+			System.out.println("Digite [PF] para Pessoa Física ou "
+					+ "[PJ] para Pessoa Jurídica:");
+			String valorDigitado = scanner.nextLine();
+
+			try {
+				tipoPessoa = TipoPessoa.valueOf(valorDigitado.toUpperCase());
+			} catch (IllegalArgumentException excecao) {
+				System.out.println("  >>> Tipo pessoa inválido, "
+						+ "digite PF ou PJ.");
+			}
+		} while (tipoPessoa == null);
+
+		return tipoPessoa;
 	}
 }

@@ -2,8 +2,8 @@ package br.com.tt.bancott.view;
 
 import java.util.Scanner;
 
-public class TelaPrincipal {
-	
+public class TelaPrincipal implements Tela {
+
 	private void imprimirMenu() {
 		System.out.println("======== TELA PRINCIPAL ========");
 		System.out.println(" Digite:");
@@ -12,7 +12,7 @@ public class TelaPrincipal {
 		System.out.println("  - [0] para encerrar programa");
 		System.out.println("--------------------------------");
 	}
-	
+
 	public void abrirTela() {
 		Scanner scanner = new Scanner(System.in);
 
@@ -25,19 +25,19 @@ public class TelaPrincipal {
 
 			switch (opcaoUsuario) {
 			case 1:
-				TelaCorrentista telaCorrentista = new TelaCorrentista();
-				telaCorrentista.abrirTela();
+				Tela tela = new TelaCorrentista();
+				tela.abrirTela();
 				break;
 			case 2:
-				TelaMovimento telaMovimento = new TelaMovimento();
-				telaMovimento.abrirTela();
+				tela = new TelaMovimento();
+				tela.abrirTela();
 				break;
 			case 0:
 				System.out.println("Encerrar programa!");
 				// fecha o scanner
 				scanner.close();
 				// encerra o programa
-				System.exit(0); 
+				System.exit(0);
 				break;
 			default:
 				System.out.println("Opção inválida! Selecione outra opção.");

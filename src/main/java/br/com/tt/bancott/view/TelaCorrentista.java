@@ -8,7 +8,7 @@ import br.com.tt.bancott.model.Correntista;
 import br.com.tt.bancott.model.CorrentistaPF;
 import br.com.tt.bancott.model.CorrentistaPJ;
 
-public class TelaCorrentista {
+public class TelaCorrentista implements Tela {
 
 	private Scanner scanner = new Scanner(System.in);
 

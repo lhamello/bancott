@@ -6,7 +6,7 @@ import br.com.tt.bancott.infra.BancoDados;
 import br.com.tt.bancott.model.Correntista;
 import br.com.tt.bancott.model.Movimento;
 
-public class TelaMovimento {
+public class TelaMovimento implements Tela {
 
 	private Scanner scanner = new Scanner(System.in);
 	

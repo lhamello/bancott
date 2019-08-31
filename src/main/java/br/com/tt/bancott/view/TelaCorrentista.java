@@ -7,6 +7,7 @@ import br.com.tt.bancott.model.Conta;
 import br.com.tt.bancott.model.Correntista;
 import br.com.tt.bancott.model.CorrentistaPF;
 import br.com.tt.bancott.model.CorrentistaPJ;
+import br.com.tt.bancott.model.TipoDocumentoPF;
 
 public class TelaCorrentista implements Tela {
 
@@ -50,13 +51,14 @@ public class TelaCorrentista implements Tela {
 		int tipoPessoa = scanner.nextInt();
 		scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 		
-		String tipoDocumento = "";
+		TipoDocumentoPF tipoDocumento = null;
 		String documento = "";
 		String cnpj = "";
 		
 		if (tipoPessoa == 1) {
 			System.out.println("Digite [CPF] ou [RG]:");
-			tipoDocumento = scanner.nextLine();
+			String documentoSelecionado = scanner.nextLine();
+			tipoDocumento = TipoDocumentoPF.valueOf(documentoSelecionado);
 			
 			System.out.println("Digite o número do documento:");
 			documento = scanner.nextLine();
@@ -77,7 +79,6 @@ public class TelaCorrentista implements Tela {
 		scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 		
 		Conta contaCorrentista = new Conta(agenciaConta, numeroConta);
-		
 		
 		Correntista correntista;
 		

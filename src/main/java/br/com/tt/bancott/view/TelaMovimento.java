@@ -5,6 +5,7 @@ import java.util.Scanner;
 import br.com.tt.bancott.infra.BancoDados;
 import br.com.tt.bancott.model.Correntista;
 import br.com.tt.bancott.model.Movimento;
+import br.com.tt.bancott.model.TipoMovimento;
 
 public class TelaMovimento implements Tela {
 
@@ -44,8 +45,10 @@ public class TelaMovimento implements Tela {
 		BancoDados bancoDeDados = BancoDados.getInstancia();
 		Correntista correntista = bancoDeDados.selecionarCorrentista(indiceCorrentista); 
 		
-		System.out.println("Digite o tipo do movimento (débito ou crédito):");
-		String tipo = scanner.nextLine();
+		System.out.println("Digite o movimento desejado (CREDITO, DEBITO, "
+				+ "SAQUE, TRANSFERENCIA):");
+		String movimentoDesejado = scanner.nextLine();
+		TipoMovimento tipoMovimento = TipoMovimento.valueOf(movimentoDesejado);
 		
 		System.out.println("Digite o valor do movimento:");
 		Double valor = scanner.nextDouble();
@@ -54,7 +57,7 @@ public class TelaMovimento implements Tela {
 		System.out.println("Digite a descrição do movimento:");
 		String descricao = scanner.nextLine();
 		
-		Movimento movimento = new Movimento(tipo, valor, descricao);
+		Movimento movimento = new Movimento(tipoMovimento, valor, descricao);
 		
 		// 3 - adicionar o movimento à conta do correntista selecionado
 		correntista.incluirMovimentoAConta(movimento);

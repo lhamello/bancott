@@ -2,12 +2,12 @@ package br.com.tt.bancott.model;
 
 public class Movimento {
 
-	private String tipo;
+	private TipoMovimento tipo;
 	private Double valor;
 	private String descricao;
 
 	// Construtor da classe movimento
-	public Movimento(String tipo, Double valor, String descricao) {
+	public Movimento(TipoMovimento tipo, Double valor, String descricao) {
 		this.tipo = tipo;
 		this.valor = valor;
 		this.descricao = descricao;

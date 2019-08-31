@@ -1,5 +1,6 @@
 package br.com.tt.bancott.view;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import br.com.tt.bancott.infra.BancoDados;
@@ -56,9 +57,7 @@ public class TelaCorrentista implements Tela {
 		String cnpj = "";
 		
 		if (tipoPessoa == TipoPessoa.PF) {
-			System.out.println("Digite [CPF] ou [RG]:");
-			String documentoSelecionado = scanner.nextLine();
-			tipoDocumento = TipoDocumentoPF.valueOf(documentoSelecionado);
+			tipoDocumento = this.pedirTipoDocumentoPF();
 			
 			System.out.println("Digite o número do documento:");
 			documento = scanner.nextLine();
@@ -70,9 +69,7 @@ public class TelaCorrentista implements Tela {
 		System.out.println("Digite o nome do correntista:");
 		String nomeCorrentista = scanner.nextLine();
 		
-		System.out.println("Digite a agência da conta do correntista:");
-		int agenciaConta = scanner.nextInt();
-		scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+		int agenciaConta = this.pedirAgenciaConta();
 		
 		System.out.println("Digite o número da conta do correntista:");
 		int numeroConta = scanner.nextInt(); 
@@ -89,7 +86,6 @@ public class TelaCorrentista implements Tela {
 			correntista = new CorrentistaPJ(nomeCorrentista, contaCorrentista, cnpj);
 		}
 
-		
 		// pega instância de um singleton, que é única
 		BancoDados bancoDeDados = BancoDados.getInstancia();
 		bancoDeDados.cadastrarCorrentista(correntista);
@@ -120,11 +116,46 @@ public class TelaCorrentista implements Tela {
 			try {
 				tipoPessoa = TipoPessoa.valueOf(valorDigitado.toUpperCase());
 			} catch (IllegalArgumentException excecao) {
-				System.out.println("  >>> Tipo pessoa inválido, "
-						+ "digite PF ou PJ.");
+				System.out.println("  >>> Tipo pessoa inválido!");
 			}
 		} while (tipoPessoa == null);
 
 		return tipoPessoa;
+	}
+	
+	private TipoDocumentoPF pedirTipoDocumentoPF() {
+		TipoDocumentoPF tipoDocumento = null;
+
+		do {
+			System.out.println("Digite [CPF] ou [RG]:");
+			String valorDigitado = scanner.nextLine();
+
+			try {
+				tipoDocumento = TipoDocumentoPF
+						.valueOf(valorDigitado.toUpperCase());
+			} catch (IllegalArgumentException excecao) {
+				System.out.println("  >>> Tipo documento inválido!");
+			}
+		} while (tipoDocumento == null);
+
+		return tipoDocumento;
+	}
+	
+	private Integer pedirAgenciaConta() {
+		Integer agencia = null;
+		
+		do {
+			System.out.println("Digite a agência da conta do correntista:");
+			
+			try {
+				agencia = scanner.nextInt();
+				scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+			} catch (InputMismatchException excecao) {
+				System.out.println("  >>> Agência inválida!");
+				scanner.nextLine();
+			}
+		} while(agencia == null);
+		
+		return agencia;
 	}
 }

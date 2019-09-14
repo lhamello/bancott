@@ -1,5 +1,8 @@
 package br.com.tt.bancott.infra;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import br.com.tt.bancott.model.Correntista;
 
 // Esta classe é um sigleton para representar um banco de
@@ -9,10 +12,12 @@ import br.com.tt.bancott.model.Correntista;
 public class BancoDados {
 
 	private static BancoDados instancia;
-	private Correntista[] correntistas;
+//	private Correntista[] correntistas;
+	private List<Correntista> correntistas;
 
 	private BancoDados() {
-		this.correntistas = new Correntista[100];
+//		this.correntistas = new Correntista[100];
+		this.correntistas = new LinkedList<>();
 	}
 
 	public static BancoDados getInstancia() {
@@ -24,20 +29,23 @@ public class BancoDados {
 	}
 
 	public void cadastrarCorrentista(Correntista correntista) {
-		for (int indice = 0; indice < correntistas.length; indice++) {
-
-			if (correntistas[indice] == null) {
-				correntistas[indice] = correntista;
-				break;
-			}
-		}
+//		for (int indice = 0; indice < correntistas.length; indice++) {
+//
+//			if (correntistas[indice] == null) {
+//				correntistas[indice] = correntista;
+//				break;
+//			}
+//		}
+		correntistas.add(correntista);
 	}
 
-	public Correntista[] listarTodosCorrentistas() {
+//	public Correntista[] listarTodosCorrentistas() {
+	public List<Correntista> listarTodosCorrentistas() {
 		return correntistas;
 	}
 	
 	public Correntista selecionarCorrentista(int indiceCorrentista) {
-		return correntistas[indiceCorrentista];
+//		return correntistas[indiceCorrentista];
+		return correntistas.get(indiceCorrentista);
 	}
 }

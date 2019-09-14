@@ -8,4 +8,13 @@ public class CorrentistaPJ extends Correntista {
 		super(nome, conta);
 		this.cnpj = cnpj;
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("Correntista[nome=%s,conta=%s,"
+				+ "cnpj=%s]", 
+				nome, 
+				conta, 
+				cnpj);
+	}
 }

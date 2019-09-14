@@ -1,6 +1,7 @@
 package br.com.tt.bancott.view;
 
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 import br.com.tt.bancott.infra.BancoDados;
@@ -95,7 +96,7 @@ public class TelaCorrentista implements Tela {
 	
 	private void listarTodosCorrentistas() {
 		BancoDados bancoDeDados = BancoDados.getInstancia();
-		Correntista[] correntistas = bancoDeDados.listarTodosCorrentistas();
+		List<Correntista> correntistas = bancoDeDados.listarTodosCorrentistas();
 		
 		for (Correntista correntista : correntistas) {
 			

@@ -1,25 +1,24 @@
 package br.com.tt.bancott.model;
 
+import java.util.List;
+
+import br.com.tt.bancott.excecao.SaldoInsuficienteException;
+
 public abstract class Correntista {
 
-	private String nome;
-	private Conta conta;
+	protected String nome;
+	protected Conta conta;
 	
 	public Correntista(String nome, Conta conta) {
 		this.nome = nome;
 		this.conta = conta;
 	}
 	
-	public void incluirMovimentoAConta(Movimento movimento) {
+	public void incluirMovimentoAConta(Movimento movimento) throws SaldoInsuficienteException {
 		this.conta.incluirMovimento(movimento);
 	}
 	
-	public Movimento[] listarMovimentosDaConta() {
+	public List<Movimento> listarMovimentosDaConta() {
 		return conta.getMovimentos();
-	}
-	
-	@Override
-	public String toString() {
-		return String.format("Correntista[nome=%s,conta=%s]", nome, conta);
 	}
 }

@@ -11,4 +11,14 @@ public class CorrentistaPF extends Correntista {
 		this.tipoDocumento = tipoDocumento;
 		this.documento = documento;
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("Correntista[nome=%s,conta=%s,"
+				+ "tipoDocumento=%s,documento=%s]", 
+				nome, 
+				conta, 
+				tipoDocumento,
+				documento);
+	}
 }

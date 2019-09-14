@@ -1,7 +1,9 @@
 package br.com.tt.bancott.view;
 
+import java.util.List;
 import java.util.Scanner;
 
+import br.com.tt.bancott.excecao.SaldoInsuficienteException;
 import br.com.tt.bancott.infra.BancoDados;
 import br.com.tt.bancott.model.Correntista;
 import br.com.tt.bancott.model.Movimento;
@@ -60,7 +62,11 @@ public class TelaMovimento implements Tela {
 		Movimento movimento = new Movimento(tipoMovimento, valor, descricao);
 		
 		// 3 - adicionar o movimento à conta do correntista selecionado
-		correntista.incluirMovimentoAConta(movimento);
+		try {
+			correntista.incluirMovimentoAConta(movimento);
+		} catch (SaldoInsuficienteException excecao) {
+			System.out.println(excecao.getMessage());
+		}
 		
 		System.out.println("Movimento cadastrado com sucesso!");
 	}
@@ -76,7 +82,7 @@ public class TelaMovimento implements Tela {
 	
 	private void listarTodosCorrentistas() {
 		BancoDados bancoDeDados = BancoDados.getInstancia();
-		Correntista[] correntistas = bancoDeDados.listarTodosCorrentistas();
+		List<Correntista> correntistas = bancoDeDados.listarTodosCorrentistas();
 		
 		int indice = 0;
 		
@@ -101,7 +107,7 @@ public class TelaMovimento implements Tela {
 		BancoDados bancoDeDados = BancoDados.getInstancia();
 		Correntista correntista = bancoDeDados.selecionarCorrentista(indiceCorrentista);
 		
-		Movimento[] movimentos = correntista.listarMovimentosDaConta();
+		List<Movimento> movimentos = correntista.listarMovimentosDaConta();
 		
 		for (Movimento movimento : movimentos) {
 			
